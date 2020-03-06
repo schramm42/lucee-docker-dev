@@ -20,6 +20,7 @@ run:
     	--name $(CONTAINER_NAME) \
 		-p 32773:80 \
 		-e LUCEE_ADMIN=1 \
+		-e LUCEE_PW=blub1234 \
     	--restart=always \
 		-v $(PWD)/src:/var/www \
     	$(REPOSITORY)

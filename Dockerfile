@@ -42,13 +42,18 @@ RUN \
     --installconn false \
     --startatboot false \
     --systemuser root \
-    && cp -rv /opt/lucee/tomcat/webapps/ROOT/* /var/www
+    && cp -rv /opt/lucee/tomcat/webapps/ROOT/* /var/www \
+    && rm -vf lucee-5.3.4.080-pl0-linux-x64-installer.run
 
 COPY /etc/ /etc/
-COPY server.xml /opt/lucee/tomcat/conf/
+COPY /config/server.xml /opt/lucee/tomcat/conf/
+COPY /config/web.xml /opt/lucee/tomcat/conf/
+COPY /config/lucee-server.xml /opt/lucee/server/lucee-server/context/
 
 COPY install.sh /install.sh
-RUN chmod +x /install.sh && /install.sh
+RUN chmod +x /install.sh \
+    && /install.sh \
+    && rm -vf /install.sh
 
 EXPOSE 80
 
@@ -58,30 +63,3 @@ WORKDIR "/var/www"
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod 755 /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
-
-# ENV HOME /root
-# ENV BIN_DIR /usr/local/bin
-
-# RUN apt-get update \
-#     && apt-get install -y \
-#     nano \
-#     unzip \
-#     procps \
-#     && rm -rf /var/lib/apt/lists/* \
-#     && echo "alias ll='ls -lA'" >> /root/.bashrc
-#     && mkdir -p /etc/lucee/web \
-#     && mkdir -p /etc/lucee/server
-
-# COPY install.sh /install.sh
-# COPY default.conf /etc/nginx/conf.d/default.conf
-# COPY deny_lucee_admin.conf /etc/nginx/location.d/deny_lucee_admin.conf
-# COPY lucee-server.xml /opt/lucee/server/lucee-server/context/lucee-server.xml
-
-# COPY web.xml /usr/local/tomcat/conf/web.xml
-
-# RUN chmod +x /install.sh && /install.sh
-
-# COPY entrypoint.sh /entrypoint.sh
-# RUN chmod +x /entrypoint.sh
-
-# ENTRYPOINT [ "/entrypoint.sh" ]
