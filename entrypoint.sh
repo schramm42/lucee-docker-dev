@@ -14,4 +14,6 @@ if [ -n "$LUCEE_ADMIN" ]; then
     mv /etc/nginx/location.d/deny_lucee_admin.conf /etc/nginx/location.d/deny_lucee_admin.conf.off
 fi
 
-supervisord -c /etc/supervisor/supervisord.conf
+# Start supervisord and services
+exec supervisord -n -c /etc/supervisor/supervisord.conf
+# tail -f /dev/null
