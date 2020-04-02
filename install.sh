@@ -1,6 +1,6 @@
 #!/bin/bash
 
-curl --location 'http://central.maven.org/maven2/org/tuckey/urlrewritefilter/4.0.3/urlrewritefilter-4.0.3.jar' -o $CATALINA_HOME/lib/urlrewritefilter-4.0.3.jar
+curl --location 'https://search.maven.org/remotecontent?filepath=org/tuckey/urlrewritefilter/4.0.3/urlrewritefilter-4.0.3.jar' -o /opt/lucee/tomcat/lib/urlrewritefilter-4.0.3.jar
 
 # Installs the latest CommandBox Binary
 mkdir -p /tmp

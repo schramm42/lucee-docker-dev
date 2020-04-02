@@ -18,9 +18,13 @@ run:
 	-docker rm $(CONTAINER_NAME)
 	docker run -d \
     	--name $(CONTAINER_NAME) \
-		-P \
+		-p 32773:80 \
+		-e LUCEE_ADMIN=1 \
+		-e LUCEE_PW=blub1234 \
     	--restart=always \
+		-v $(PWD)/src:/var/www \
     	$(REPOSITORY)
+
 
 exec:
 	docker exec -it $(CONTAINER_NAME) /bin/bash
